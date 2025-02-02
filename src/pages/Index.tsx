@@ -1,5 +1,8 @@
 import DailyOverview from "@/components/DailyOverview";
 import VoiceJournal from "@/components/VoiceJournal";
+import VisionBoard from "@/components/VisionBoard";
+import Challenges from "@/components/Challenges";
+import MusicRecommendations from "@/components/MusicRecommendations";
 
 const Index = () => {
   return (
@@ -9,7 +12,12 @@ const Index = () => {
           My Daily Planner
         </h1>
         <DailyOverview />
-        <VoiceJournal />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <VoiceJournal />
+          <VisionBoard />
+        </div>
+        <Challenges />
+        <MusicRecommendations />
       </div>
     </div>
   );

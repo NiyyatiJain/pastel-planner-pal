@@ -40,3 +40,45 @@
 .read-the-docs {
   color: #888;
 }
+
+/* New animations and utilities */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pastel color utilities */
+.bg-pastel-pink {
+  background-color: #FFDEE2;
+}
+
+.bg-pastel-purple {
+  background-color: #E5DEFF;
+}
+
+.bg-pastel-peach {
+  background-color: #FDE1D3;
+}
+
+.bg-pastel-blue {
+  background-color: #D3E4FD;
+}
+
+.bg-pastel-green {
+  background-color: #F2FCE2;
+}
+
+.bg-pastel-yellow {
+  background-color: #FEF7CD;
+}

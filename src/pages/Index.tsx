@@ -3,6 +3,7 @@ import VoiceJournal from "@/components/VoiceJournal";
 import VisionBoard from "@/components/VisionBoard";
 import Challenges from "@/components/Challenges";
 import MusicRecommendations from "@/components/MusicRecommendations";
+import PinterestBoard from "@/components/PinterestBoard";
 
 const Index = () => {
   return (
@@ -17,7 +18,10 @@ const Index = () => {
           <VisionBoard />
         </div>
         <Challenges />
-        <MusicRecommendations />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <PinterestBoard />
+          <MusicRecommendations />
+        </div>
       </div>
     </div>
   );

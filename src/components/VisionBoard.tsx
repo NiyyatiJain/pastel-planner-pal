@@ -1,10 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import { Upload, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { analyzeImage } from "@/utils/imageAnalysis";
 import { toast } from "sonner";
-import { Input } from "@/components/ui/input";
+import { analyzeImage } from "@/utils/imageAnalysis";
 
 interface VisionItem {
   imageUrl: string;
@@ -14,16 +12,10 @@ interface VisionItem {
 const VisionBoard = () => {
   const [items, setItems] = useState<VisionItem[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [apiKey, setApiKey] = useState('');
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
-
-    if (!apiKey) {
-      toast.error("Please enter your Perplexity API key first");
-      return;
-    }
 
     try {
       setIsAnalyzing(true);
@@ -34,7 +26,7 @@ const VisionBoard = () => {
         const imageUrl = reader.result as string;
         
         try {
-          const goals = await analyzeImage(imageUrl, apiKey);
+          const goals = await analyzeImage(imageUrl);
           setItems([...items, { imageUrl, goals }]);
           toast.success("Image analyzed successfully!");
         } catch (error) {
@@ -57,27 +49,6 @@ const VisionBoard = () => {
       <div className="space-y-4">
         <h2 className="text-2xl font-quicksand font-bold text-gray-700 mb-4">Vision Board</h2>
         
-        <div className="mb-4">
-          <Input
-            type="password"
-            placeholder="Enter your Perplexity API key"
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-            className="max-w-md"
-          />
-          <p className="text-sm text-gray-500 mt-1">
-            Get your API key from{" "}
-            <a
-              href="https://www.perplexity.ai/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
-            >
-              Perplexity AI
-            </a>
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {items.map((item, index) => (
             <Card key={index} className="p-4 bg-white/80 rounded-lg shadow">

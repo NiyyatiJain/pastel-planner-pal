@@ -5,8 +5,7 @@ export async function analyzeImage(imageUrl: string): Promise<string[]> {
     // Create image classification pipeline
     const classifier = await pipeline(
       "image-classification",
-      "microsoft/resnet-50",
-      { quantized: true }
+      "microsoft/resnet-50"
     );
 
     // Analyze the image

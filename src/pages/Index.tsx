@@ -6,12 +6,21 @@ import Challenges from "@/components/Challenges";
 import MusicRecommendations from "@/components/MusicRecommendations";
 import PinterestBoard from "@/components/PinterestBoard";
 import ChatBot from "@/components/ChatBot";
+import ThemeSelector from "@/components/ThemeSelector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle } from "lucide-react";
+import { useState } from "react";
 
 const Index = () => {
+  const [currentTheme, setCurrentTheme] = useState({
+    from: "from-pastel-pink",
+    via: "via-white",
+    to: "to-pastel-purple",
+  });
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pastel-pink via-white to-pastel-purple p-6">
+    <div className={`min-h-screen bg-gradient-to-br ${currentTheme.from} ${currentTheme.via} ${currentTheme.to} p-6`}>
+      <ThemeSelector onThemeChange={setCurrentTheme} />
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-quicksand font-bold text-gray-700 text-center mb-8">
           My Daily Planner

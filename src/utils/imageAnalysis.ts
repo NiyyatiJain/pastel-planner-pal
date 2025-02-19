@@ -1,3 +1,4 @@
+
 import { pipeline, env } from '@huggingface/transformers';
 
 // Configure transformers.js to use browser environment
@@ -13,14 +14,13 @@ export async function analyzeImage(imageUrl: string): Promise<string[]> {
       "image-classification",
       "Xenova/vit-base-patch16-224",
       { 
-        quantized: false,
         device: 'cpu'
       }
     );
 
     console.log('Analyzing image...');
     const results = await classifier(imageUrl, {
-      topk: 5
+      top_k: 5 // Changed from topk to top_k to match the correct property name
     });
 
     console.log('Classification results:', results);

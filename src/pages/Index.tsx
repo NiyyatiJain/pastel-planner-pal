@@ -1,11 +1,13 @@
+
 import DailyOverview from "@/components/DailyOverview";
 import VoiceJournal from "@/components/VoiceJournal";
 import VisionBoard from "@/components/VisionBoard";
 import Challenges from "@/components/Challenges";
 import MusicRecommendations from "@/components/MusicRecommendations";
 import PinterestBoard from "@/components/PinterestBoard";
+import ChatBot from "@/components/ChatBot";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Star, Music, Image, Mic, Trophy } from "lucide-react";
+import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle } from "lucide-react";
 
 const Index = () => {
   return (
@@ -18,7 +20,7 @@ const Index = () => {
         <DailyOverview />
         
         <Tabs defaultValue="journal" className="w-full">
-          <TabsList className="w-full grid grid-cols-3 md:grid-cols-6 bg-white/50">
+          <TabsList className="w-full grid grid-cols-3 md:grid-cols-7 bg-white/50">
             <TabsTrigger value="journal" className="flex items-center gap-2">
               <Mic className="w-4 h-4" />
               <span className="hidden md:inline">Journal</span>
@@ -42,6 +44,10 @@ const Index = () => {
             <TabsTrigger value="mood" className="flex items-center gap-2">
               <Star className="w-4 h-4" />
               <span className="hidden md:inline">Mood</span>
+            </TabsTrigger>
+            <TabsTrigger value="chat" className="flex items-center gap-2">
+              <MessageCircle className="w-4 h-4" />
+              <span className="hidden md:inline">Chat</span>
             </TabsTrigger>
           </TabsList>
 
@@ -69,6 +75,10 @@ const Index = () => {
             <div className="grid gap-4">
               <DailyOverview />
             </div>
+          </TabsContent>
+
+          <TabsContent value="chat" className="mt-4">
+            <ChatBot />
           </TabsContent>
         </Tabs>
       </div>

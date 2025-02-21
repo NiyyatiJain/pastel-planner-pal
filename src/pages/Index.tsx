@@ -18,18 +18,23 @@ const Index = () => {
     to: "to-[#FFE5EC]",
   });
 
+  const isDarkTheme = currentTheme.from.includes('#1') || 
+                     currentTheme.from.includes('#2') || 
+                     currentTheme.from.includes('#3') ||
+                     currentTheme.from.includes('#0');
+
   return (
     <div className={`min-h-screen bg-gradient-to-br ${currentTheme.from} ${currentTheme.via} ${currentTheme.to} p-6 transition-colors duration-700`}>
       <ThemeSelector onThemeChange={setCurrentTheme} />
       <div className="max-w-4xl mx-auto space-y-6">
-        <h1 className="text-4xl font-quicksand font-bold text-gray-700 text-center mb-8">
+        <h1 className={`text-4xl font-quicksand font-bold ${isDarkTheme ? 'text-white' : 'text-gray-700'} text-center mb-8 transition-colors duration-700`}>
           My Daily Planner
         </h1>
         
         <DailyOverview />
         
         <Tabs defaultValue="journal" className="w-full">
-          <TabsList className="w-full grid grid-cols-3 md:grid-cols-7 bg-white/50">
+          <TabsList className={`w-full grid grid-cols-3 md:grid-cols-7 ${isDarkTheme ? 'bg-white/10' : 'bg-white/50'}`}>
             <TabsTrigger value="journal" className="flex items-center gap-2">
               <Mic className="w-4 h-4" />
               <span className="hidden md:inline">Journal</span>

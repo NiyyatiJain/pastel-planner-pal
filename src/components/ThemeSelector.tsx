@@ -11,34 +11,34 @@ import { useState } from "react";
 
 const themes = [
   {
-    name: "Default",
-    from: "from-pastel-pink",
-    via: "via-white",
-    to: "to-pastel-purple",
+    name: "Sweet Rose",
+    from: "from-[#FF8FAB]",
+    via: "via-[#FFC2D4]",
+    to: "to-[#FFE5EC]",
   },
   {
-    name: "Ocean Breeze",
-    from: "from-pastel-blue",
-    via: "via-white",
-    to: "to-pastel-green",
+    name: "Ocean Dream",
+    from: "from-[#48CAE4]",
+    via: "via-[#90E0EF]",
+    to: "to-[#CAF0F8]",
   },
   {
-    name: "Sunset",
-    from: "from-pastel-yellow",
-    via: "via-white",
-    to: "to-pastel-peach",
+    name: "Sunset Gold",
+    from: "from-[#FF9E44]",
+    via: "via-[#FFB877]",
+    to: "to-[#FFD4AA]",
   },
   {
-    name: "Lavender Dream",
-    from: "from-[#E5DEFF]",
-    via: "via-white",
-    to: "to-[#FFDEE2]",
+    name: "Lavender Mist",
+    from: "from-[#9B5DE5]",
+    via: "via-[#C490E4]",
+    to: "to-[#E5C9FF]",
   },
   {
-    name: "Mint Fresh",
-    from: "from-[#F2FCE2]",
-    via: "via-white",
-    to: "to-[#D3E4FD]",
+    name: "Mint Breeze",
+    from: "from-[#2EC4B6]",
+    via: "via-[#80DDD2]",
+    to: "to-[#BCECE7]",
   }
 ];
 
@@ -53,8 +53,12 @@ const ThemeSelector = ({ onThemeChange }: { onThemeChange: (theme: typeof themes
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="fixed top-4 right-4 bg-white/50 backdrop-blur-sm">
-          <Palette className="h-4 w-4" />
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className={`fixed top-4 right-4 bg-white/50 backdrop-blur-sm transition-colors duration-300 ${currentTheme.from} hover:opacity-80`}
+        >
+          <Palette className="h-4 w-4 text-white" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
@@ -62,11 +66,13 @@ const ThemeSelector = ({ onThemeChange }: { onThemeChange: (theme: typeof themes
           <DropdownMenuItem
             key={theme.name}
             onClick={() => handleThemeChange(theme)}
-            className={`flex items-center gap-2 cursor-pointer ${
+            className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 ${
               currentTheme.name === theme.name ? "bg-accent" : ""
             }`}
           >
-            <div className={`w-6 h-6 rounded-full bg-gradient-to-br ${theme.from} ${theme.via} ${theme.to}`} />
+            <div 
+              className={`w-6 h-6 rounded-full bg-gradient-to-br ${theme.from} ${theme.via} ${theme.to} transition-transform duration-200 hover:scale-110`} 
+            />
             {theme.name}
           </DropdownMenuItem>
         ))}

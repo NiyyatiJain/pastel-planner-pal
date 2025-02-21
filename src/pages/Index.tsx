@@ -13,13 +13,13 @@ import { useState } from "react";
 
 const Index = () => {
   const [currentTheme, setCurrentTheme] = useState({
-    from: "from-pastel-pink",
-    via: "via-white",
-    to: "to-pastel-purple",
+    from: "from-[#FF8FAB]",
+    via: "via-[#FFC2D4]",
+    to: "to-[#FFE5EC]",
   });
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${currentTheme.from} ${currentTheme.via} ${currentTheme.to} p-6`}>
+    <div className={`min-h-screen bg-gradient-to-br ${currentTheme.from} ${currentTheme.via} ${currentTheme.to} p-6 transition-colors duration-700`}>
       <ThemeSelector onThemeChange={setCurrentTheme} />
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-quicksand font-bold text-gray-700 text-center mb-8">

@@ -40,6 +40,37 @@ const themes = [
     via: "via-[#80DDD2]",
     to: "to-[#BCECE7]",
   },
+  // Teddy Bow Themes
+  {
+    name: "Teddy Pink",
+    from: "from-[#FFDEE2]",
+    via: "via-[#FFF0F2]",
+    to: "to-[#FFE8EC]",
+  },
+  {
+    name: "Teddy Peach",
+    from: "from-[#FDE1D3]",
+    via: "via-[#FFF3EC]",
+    to: "to-[#FEF0E8]",
+  },
+  {
+    name: "Teddy Yellow",
+    from: "from-[#FEF7CD]",
+    via: "via-[#FFFAE6]",
+    to: "to-[#FFF8E0]",
+  },
+  {
+    name: "Teddy Purple",
+    from: "from-[#E5DEFF]",
+    via: "via-[#F1EEFF]",
+    to: "to-[#F8F6FF]",
+  },
+  {
+    name: "Teddy Blue",
+    from: "from-[#D3E4FD]",
+    via: "via-[#E8F1FE]",
+    to: "to-[#F2F7FF]",
+  },
   // Dark themes
   {
     name: "Dark Sapphire",
@@ -111,9 +142,26 @@ const ThemeSelector = ({ onThemeChange }: { onThemeChange: (theme: typeof themes
           </DropdownMenuItem>
         ))}
         <DropdownMenuItem className="font-semibold" disabled>
+          Teddy Themes
+        </DropdownMenuItem>
+        {themes.slice(5, 10).map((theme) => (
+          <DropdownMenuItem
+            key={theme.name}
+            onClick={() => handleThemeChange(theme)}
+            className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 ${
+              currentTheme.name === theme.name ? "bg-accent" : ""
+            }`}
+          >
+            <div 
+              className={`w-6 h-6 rounded-full bg-gradient-to-br ${theme.from} ${theme.via} ${theme.to} transition-transform duration-200 hover:scale-110`} 
+            />
+            {theme.name}
+          </DropdownMenuItem>
+        ))}
+        <DropdownMenuItem className="font-semibold" disabled>
           Dark Themes
         </DropdownMenuItem>
-        {themes.slice(5).map((theme) => (
+        {themes.slice(10).map((theme) => (
           <DropdownMenuItem
             key={theme.name}
             onClick={() => handleThemeChange(theme)}

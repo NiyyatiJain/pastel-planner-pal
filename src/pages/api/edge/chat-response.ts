@@ -36,6 +36,10 @@ export default async function handler(req: Request) {
       }),
     });
 
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.statusText}`);
+    }
+
     const data = await response.json();
     return new Response(
       JSON.stringify({ response: data.choices[0].message.content }),

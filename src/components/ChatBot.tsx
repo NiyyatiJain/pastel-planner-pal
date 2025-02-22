@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, Send, User, Ghost } from "lucide-react";
+import { Send, User, Ghost } from "lucide-react";
 import { toast } from "sonner";
 
 interface Message {
@@ -17,37 +17,28 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hey! 👻 Welcome to SnapBot! How can I help you today?",
+      content: "Hey! 👻 Welcome to SnapBot! I'm your AI-powered snap buddy! How can I help you today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const generateSnapResponse = (userInput: string): string => {
-    const lowerInput = userInput.toLowerCase();
-    
-    if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
-      return "Hey there! 👋 What's snapping?";
+  const generateAIResponse = async (message: string): Promise<string> => {
+    const response = await fetch('/api/edge/chat-response', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to generate response');
     }
-    if (lowerInput.includes('thank')) {
-      return "You're welcome! Keep snapping! 📸";
-    }
-    if (lowerInput.includes('help')) {
-      return "I'm here to help! What's on your mind? 💭";
-    }
-    if (lowerInput.includes('bye')) {
-      return "Catch you later! Stay snappy! 👻";
-    }
-    
-    const responses = [
-      "That's interesting! Tell me more! 👀",
-      "Snap! I totally get what you mean! 📸",
-      "Keep that energy going! 🌟",
-      "That's the spirit! 🎉",
-      "You're on fire today! 🔥"
-    ];
-    return responses[Math.floor(Math.random() * responses.length)];
+
+    const data = await response.json();
+    return data.response;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,21 +51,22 @@ const ChatBot = () => {
       content: input.trim(),
       timestamp 
     };
+    
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const response = generateSnapResponse(input.trim());
+      const aiResponse = await generateAIResponse(input.trim());
       
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: response,
+        content: aiResponse,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } catch (error) {
       toast.error("Oops! Message failed to send. Try again! 👻");
+      console.error('Error generating response:', error);
     } finally {
       setIsLoading(false);
     }
@@ -84,7 +76,7 @@ const ChatBot = () => {
     <Card className="p-4 bg-gradient-to-br from-yellow-100 via-yellow-50 to-white rounded-lg shadow-lg h-[500px] flex flex-col">
       <div className="flex items-center gap-2 mb-4 bg-white/80 p-3 rounded-lg shadow-sm">
         <Ghost className="w-6 h-6 text-yellow-400 animate-bounce" />
-        <h2 className="text-lg font-semibold text-gray-700">SnapBot</h2>
+        <h2 className="text-lg font-semibold text-gray-700">SnapBot AI</h2>
       </div>
 
       <ScrollArea className="flex-1 pr-4">
@@ -125,7 +117,7 @@ const ChatBot = () => {
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Send a snap message..."
+          placeholder="Send a message to AI SnapBot..."
           disabled={isLoading}
           className="flex-1 rounded-full bg-white/80 border-yellow-200 focus:border-yellow-400 focus:ring-yellow-400"
         />

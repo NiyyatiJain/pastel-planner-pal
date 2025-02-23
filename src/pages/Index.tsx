@@ -8,8 +8,9 @@ import PinterestBoard from "@/components/PinterestBoard";
 import ChatBot from "@/components/ChatBot";
 import ThemeSelector from "@/components/ThemeSelector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle } from "lucide-react";
+import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar } from "lucide-react";
 import { useState } from "react";
+import Calendar from "./Calendar";
 
 const Index = () => {
   const [currentTheme, setCurrentTheme] = useState({
@@ -34,7 +35,7 @@ const Index = () => {
         <DailyOverview />
         
         <Tabs defaultValue="journal" className="w-full">
-          <TabsList className={`w-full grid grid-cols-3 md:grid-cols-7 ${isDarkTheme ? 'bg-white/10' : 'bg-white/50'}`}>
+          <TabsList className={`w-full grid grid-cols-3 md:grid-cols-8 ${isDarkTheme ? 'bg-white/10' : 'bg-white/50'}`}>
             <TabsTrigger value="journal" className="flex items-center gap-2">
               <Mic className="w-4 h-4" />
               <span className="hidden md:inline">Journal</span>
@@ -62,6 +63,10 @@ const Index = () => {
             <TabsTrigger value="chat" className="flex items-center gap-2">
               <MessageCircle className="w-4 h-4" />
               <span className="hidden md:inline">Chat</span>
+            </TabsTrigger>
+            <TabsTrigger value="calendar" className="flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
+              <span className="hidden md:inline">Calendar</span>
             </TabsTrigger>
           </TabsList>
 
@@ -93,6 +98,10 @@ const Index = () => {
 
           <TabsContent value="chat" className="mt-4">
             <ChatBot />
+          </TabsContent>
+
+          <TabsContent value="calendar" className="mt-4">
+            <Calendar />
           </TabsContent>
         </Tabs>
       </div>

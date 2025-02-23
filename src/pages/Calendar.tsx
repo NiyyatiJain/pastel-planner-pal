@@ -65,13 +65,6 @@ const Calendar = () => {
                 <div className="w-3 h-3 rounded-full bg-pastel-blue animate-pulse"></div>
               </div>
             </div>
-            <div className="relative">
-              <img 
-                src="/lovable-uploads/a26bfde9-b58e-41ac-a598-9401de6789ce.png" 
-                alt="Bunting decoration"
-                className="w-32 opacity-50 absolute -top-4 left-1/2 transform -translate-x-1/2"
-              />
-            </div>
             <div className="bg-pink-50 p-4 rounded-lg">
               <h3 className="text-xl font-semibold text-gray-600 mb-2">Cleaning</h3>
               <div className="space-y-2">

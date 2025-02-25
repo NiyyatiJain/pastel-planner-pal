@@ -10,7 +10,7 @@ import ThemeSelector from "@/components/ThemeSelector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar as CalendarIcon } from "lucide-react";
 import { useState } from "react";
-import Calendar from "./Calendar";
+import CalendarView from "./Calendar";
 
 const Index = () => {
   const [currentTheme, setCurrentTheme] = useState({
@@ -101,7 +101,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="mt-4">
-            <Calendar />
+            <CalendarView />
           </TabsContent>
         </Tabs>
       </div>

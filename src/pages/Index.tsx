@@ -8,9 +8,11 @@ import PinterestBoard from "@/components/PinterestBoard";
 import ChatBot from "@/components/ChatBot";
 import ThemeSelector from "@/components/ThemeSelector";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar as CalendarIcon } from "lucide-react";
+import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar as CalendarIcon, LogIn } from "lucide-react";
 import { useState } from "react";
 import CalendarView from "./Calendar";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [currentTheme, setCurrentTheme] = useState({
@@ -26,7 +28,15 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${currentTheme.from} ${currentTheme.via} ${currentTheme.to} p-6 transition-colors duration-700`}>
-      <ThemeSelector onThemeChange={setCurrentTheme} />
+      <div className="flex justify-between items-center mb-6">
+        <ThemeSelector onThemeChange={setCurrentTheme} />
+        <Link to="/login">
+          <Button variant="outline" className="gap-2 bg-white/30 backdrop-blur-sm hover:bg-white/50">
+            <LogIn className="h-4 w-4" />
+            <span>Login</span>
+          </Button>
+        </Link>
+      </div>
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className={`text-4xl font-quicksand font-bold ${isDarkTheme ? 'text-white' : 'text-gray-700'} text-center mb-8 transition-colors duration-700`}>
           My Daily Planner

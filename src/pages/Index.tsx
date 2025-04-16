@@ -7,8 +7,9 @@ import MusicRecommendations from "@/components/MusicRecommendations";
 import PinterestBoard from "@/components/PinterestBoard";
 import ChatBot from "@/components/ChatBot";
 import ThemeSelector from "@/components/ThemeSelector";
+import TranscriptionsView from "@/components/TranscriptionsView";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar as CalendarIcon, LogIn } from "lucide-react";
+import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar as CalendarIcon, LogIn, FileText } from "lucide-react";
 import { useState } from "react";
 import CalendarView from "./Calendar";
 import { Link } from "react-router-dom";
@@ -45,10 +46,14 @@ const Index = () => {
         <DailyOverview />
         
         <Tabs defaultValue="journal" className="w-full">
-          <TabsList className={`w-full grid grid-cols-3 md:grid-cols-8 ${isDarkTheme ? 'bg-white/10' : 'bg-white/50'}`}>
+          <TabsList className={`w-full grid grid-cols-3 md:grid-cols-9 ${isDarkTheme ? 'bg-white/10' : 'bg-white/50'}`}>
             <TabsTrigger value="journal" className="flex items-center gap-2">
               <Mic className="w-4 h-4" />
               <span className="hidden md:inline">Journal</span>
+            </TabsTrigger>
+            <TabsTrigger value="transcriptions" className="flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              <span className="hidden md:inline">Transcripts</span>
             </TabsTrigger>
             <TabsTrigger value="vision" className="flex items-center gap-2">
               <Image className="w-4 h-4" />
@@ -84,6 +89,10 @@ const Index = () => {
             <VoiceJournal />
           </TabsContent>
 
+          <TabsContent value="transcriptions" className="mt-4">
+            <TranscriptionsView />
+          </TabsContent>
+          
           <TabsContent value="vision" className="mt-4">
             <VisionBoard />
           </TabsContent>

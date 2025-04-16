@@ -1,5 +1,5 @@
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,14 +11,31 @@ interface TranscriptionWindowProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   audioUrl: string | null;
+  initialTranscription?: string;
 }
 
-const TranscriptionWindow = ({ open, onOpenChange, audioUrl }: TranscriptionWindowProps) => {
+const TranscriptionWindow = ({ 
+  open, 
+  onOpenChange, 
+  audioUrl, 
+  initialTranscription 
+}: TranscriptionWindowProps) => {
   const [transcription, setTranscription] = useState<string>("");
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [editedTranscription, setEditedTranscription] = useState<string>("");
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { toast } = useToast();
+
+  // Set initial transcription if provided
+  useEffect(() => {
+    if (initialTranscription) {
+      setTranscription(initialTranscription);
+      setEditedTranscription(initialTranscription);
+    } else {
+      setTranscription("");
+      setEditedTranscription("");
+    }
+  }, [initialTranscription, open]);
 
   // Mock transcription function (in a real app, this would use a speech-to-text API)
   const transcribeAudio = async () => {
@@ -56,7 +73,27 @@ const TranscriptionWindow = ({ open, onOpenChange, audioUrl }: TranscriptionWind
   };
 
   const saveTranscription = () => {
-    // In a real app, we would save the transcription to a database
+    // Generate a unique ID for the transcription
+    const transcriptionId = `tr-${Date.now()}`;
+    
+    // Get existing transcriptions from localStorage
+    const existingTranscriptionsJSON = localStorage.getItem("transcriptions");
+    const existingTranscriptions = existingTranscriptionsJSON 
+      ? JSON.parse(existingTranscriptionsJSON) 
+      : [];
+    
+    // Create new transcription object
+    const newTranscription = {
+      id: transcriptionId,
+      text: editedTranscription,
+      date: new Date().toISOString(), // Store as ISO string for proper serialization
+      audioUrl: audioUrl || "",
+    };
+    
+    // Add the new transcription and save to localStorage
+    const updatedTranscriptions = [...existingTranscriptions, newTranscription];
+    localStorage.setItem("transcriptions", JSON.stringify(updatedTranscriptions));
+    
     toast({
       title: "Transcription saved",
       description: "Your transcription has been saved successfully"
@@ -86,7 +123,7 @@ const TranscriptionWindow = ({ open, onOpenChange, audioUrl }: TranscriptionWind
             </div>
           )}
           
-          {!transcription && !isTranscribing && (
+          {!transcription && !isTranscribing && !initialTranscription && (
             <Button 
               onClick={transcribeAudio} 
               className="w-full bg-pastel-pink hover:bg-pink-300"
@@ -103,7 +140,7 @@ const TranscriptionWindow = ({ open, onOpenChange, audioUrl }: TranscriptionWind
             </div>
           )}
           
-          {transcription && !isTranscribing && (
+          {(transcription || initialTranscription) && !isTranscribing && (
             <>
               <div className="space-y-2">
                 <Label htmlFor="transcription">Transcription</Label>

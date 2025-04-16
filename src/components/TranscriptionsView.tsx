@@ -9,46 +9,45 @@ import { useToast } from "@/components/ui/use-toast";
 import { format } from "date-fns";
 import TranscriptionWindow from "./TranscriptionWindow";
 
-// Define the transcription type
-export interface Transcription {
+// Update the interface name to match the new branding
+export interface EchoEntry {
   id: string;
   text: string;
   date: Date;
   audioUrl: string;
 }
 
-const TranscriptionsView = () => {
-  const [transcriptions, setTranscriptions] = useState<Transcription[]>([]);
-  const [selectedTranscription, setSelectedTranscription] = useState<Transcription | null>(null);
+const EchoEntriesView = () => {
+  const [echoEntries, setEchoEntries] = useState<EchoEntry[]>([]);
+  const [selectedEchoEntry, setSelectedEchoEntry] = useState<EchoEntry | null>(null);
   const [transcriptionOpen, setTranscriptionOpen] = useState(false);
   const { toast } = useToast();
 
-  // Load transcriptions from localStorage on component mount
+  // Update localStorage key to match new branding
   useEffect(() => {
-    const savedTranscriptions = localStorage.getItem("transcriptions");
-    if (savedTranscriptions) {
+    const savedEchoEntries = localStorage.getItem("echoEntries");
+    if (savedEchoEntries) {
       try {
-        // Parse dates properly when loading from localStorage
-        const parsed = JSON.parse(savedTranscriptions);
+        const parsed = JSON.parse(savedEchoEntries);
         const withDates = parsed.map((t: any) => ({
           ...t,
           date: new Date(t.date)
         }));
-        setTranscriptions(withDates);
+        setEchoEntries(withDates);
       } catch (error) {
-        console.error("Error loading transcriptions:", error);
+        console.error("Error loading echo entries:", error);
       }
     }
   }, []);
 
-  const handleDeleteTranscription = (id: string) => {
-    const updatedTranscriptions = transcriptions.filter((t) => t.id !== id);
-    setTranscriptions(updatedTranscriptions);
-    localStorage.setItem("transcriptions", JSON.stringify(updatedTranscriptions));
+  const handleDeleteEchoEntry = (id: string) => {
+    const updatedEchoEntries = echoEntries.filter((t) => t.id !== id);
+    setEchoEntries(updatedEchoEntries);
+    localStorage.setItem("echoEntries", JSON.stringify(updatedEchoEntries));
     
     toast({
-      title: "Transcription deleted",
-      description: "The transcription has been removed from your journal",
+      title: "Echo Entry deleted",
+      description: "The echo entry has been removed from your journal",
     });
   };
 
@@ -56,12 +55,12 @@ const TranscriptionsView = () => {
     navigator.clipboard.writeText(text);
     toast({
       title: "Copied to clipboard",
-      description: "Transcription text copied to clipboard"
+      description: "Echo entry text copied to clipboard"
     });
   };
 
-  const openTranscriptionDetails = (transcription: Transcription) => {
-    setSelectedTranscription(transcription);
+  const openEchoEntryDetails = (echoEntry: EchoEntry) => {
+    setSelectedEchoEntry(echoEntry);
     setTranscriptionOpen(true);
   };
 
@@ -69,7 +68,7 @@ const TranscriptionsView = () => {
     <>
       <Card className="p-6 bg-gradient-to-r from-pastel-blue to-pastel-green rounded-xl shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-quicksand font-bold text-gray-700">Saved Transcriptions</h2>
+          <h2 className="text-2xl font-quicksand font-bold text-gray-700">Echo Entries</h2>
           <div className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-gray-600" />
             <span className="text-sm text-gray-600 font-medium">
@@ -78,10 +77,10 @@ const TranscriptionsView = () => {
           </div>
         </div>
 
-        {transcriptions.length === 0 ? (
+        {echoEntries.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-8 bg-white/30 rounded-lg">
             <FileText className="h-12 w-12 text-gray-400 mb-3" />
-            <p className="text-gray-600 text-center">No transcriptions saved yet</p>
+            <p className="text-gray-600 text-center">No Echo Entries saved yet</p>
             <p className="text-gray-500 text-sm text-center mt-2">
               Transcribed voice entries will appear here
             </p>
@@ -97,15 +96,15 @@ const TranscriptionsView = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {transcriptions.map((transcription) => (
-                  <TableRow key={transcription.id}>
+                {echoEntries.map((echoEntry) => (
+                  <TableRow key={echoEntry.id}>
                     <TableCell className="font-medium">
-                      {format(transcription.date, "MMM d, yyyy - h:mm a")}
+                      {format(echoEntry.date, "MMM d, yyyy - h:mm a")}
                     </TableCell>
                     <TableCell>
                       <div className="max-w-[300px] truncate">
-                        {transcription.text.substring(0, 100)}
-                        {transcription.text.length > 100 ? "..." : ""}
+                        {echoEntry.text.substring(0, 100)}
+                        {echoEntry.text.length > 100 ? "..." : ""}
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
@@ -113,7 +112,7 @@ const TranscriptionsView = () => {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          onClick={() => handleCopyToClipboard(transcription.text)}
+                          onClick={() => handleCopyToClipboard(echoEntry.text)}
                           className="h-8 px-2"
                         >
                           <Copy className="h-4 w-4" />
@@ -121,7 +120,7 @@ const TranscriptionsView = () => {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          onClick={() => openTranscriptionDetails(transcription)}
+                          onClick={() => openEchoEntryDetails(echoEntry)}
                           className="h-8 px-2 bg-pastel-pink/20 hover:bg-pastel-pink/30"
                         >
                           <FileText className="h-4 w-4" />
@@ -129,7 +128,7 @@ const TranscriptionsView = () => {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          onClick={() => handleDeleteTranscription(transcription.id)}
+                          onClick={() => handleDeleteEchoEntry(echoEntry.id)}
                           className="h-8 px-2 text-destructive hover:text-destructive"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -144,16 +143,16 @@ const TranscriptionsView = () => {
         )}
       </Card>
 
-      {selectedTranscription && (
+      {selectedEchoEntry && (
         <TranscriptionWindow 
           open={transcriptionOpen} 
           onOpenChange={setTranscriptionOpen}
-          audioUrl={selectedTranscription.audioUrl} 
-          initialTranscription={selectedTranscription.text}
+          audioUrl={selectedEchoEntry.audioUrl} 
+          initialTranscription={selectedEchoEntry.text}
         />
       )}
     </>
   );
 };
 
-export default TranscriptionsView;
+export default EchoEntriesView;

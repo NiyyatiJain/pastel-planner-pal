@@ -1,4 +1,3 @@
-
 import DailyOverview from "@/components/DailyOverview";
 import VoiceJournal from "@/components/VoiceJournal";
 import VisionBoard from "@/components/VisionBoard";
@@ -7,7 +6,7 @@ import MusicRecommendations from "@/components/MusicRecommendations";
 import PinterestBoard from "@/components/PinterestBoard";
 import ChatBot from "@/components/ChatBot";
 import ThemeSelector from "@/components/ThemeSelector";
-import TranscriptionsView from "@/components/TranscriptionsView";
+import EchoEntriesView from "@/components/TranscriptionsView";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar as CalendarIcon, LogIn, FileText } from "lucide-react";
 import { useState } from "react";
@@ -53,7 +52,7 @@ const Index = () => {
             </TabsTrigger>
             <TabsTrigger value="transcriptions" className="flex items-center gap-2">
               <FileText className="w-4 h-4" />
-              <span className="hidden md:inline">Transcripts</span>
+              <span className="hidden md:inline">Echo Entries</span>
             </TabsTrigger>
             <TabsTrigger value="vision" className="flex items-center gap-2">
               <Image className="w-4 h-4" />
@@ -90,7 +89,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="transcriptions" className="mt-4">
-            <TranscriptionsView />
+            <EchoEntriesView />
           </TabsContent>
           
           <TabsContent value="vision" className="mt-4">

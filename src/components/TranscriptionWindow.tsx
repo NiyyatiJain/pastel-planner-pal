@@ -68,35 +68,35 @@ const TranscriptionWindow = ({
     navigator.clipboard.writeText(editedTranscription);
     toast({
       title: "Copied to clipboard",
-      description: "Your transcription has been copied to clipboard"
+      description: "Your Echo Entry has been copied to clipboard"
     });
   };
 
   const saveTranscription = () => {
     // Generate a unique ID for the transcription
-    const transcriptionId = `tr-${Date.now()}`;
+    const echoEntryId = `ee-${Date.now()}`;
     
-    // Get existing transcriptions from localStorage
-    const existingTranscriptionsJSON = localStorage.getItem("transcriptions");
-    const existingTranscriptions = existingTranscriptionsJSON 
-      ? JSON.parse(existingTranscriptionsJSON) 
+    // Get existing echo entries from localStorage
+    const existingEchoEntriesJSON = localStorage.getItem("echoEntries");
+    const existingEchoEntries = existingEchoEntriesJSON 
+      ? JSON.parse(existingEchoEntriesJSON) 
       : [];
     
-    // Create new transcription object
-    const newTranscription = {
-      id: transcriptionId,
+    // Create new echo entry object
+    const newEchoEntry = {
+      id: echoEntryId,
       text: editedTranscription,
       date: new Date().toISOString(), // Store as ISO string for proper serialization
       audioUrl: audioUrl || "",
     };
     
-    // Add the new transcription and save to localStorage
-    const updatedTranscriptions = [...existingTranscriptions, newTranscription];
-    localStorage.setItem("transcriptions", JSON.stringify(updatedTranscriptions));
+    // Add the new echo entry and save to localStorage
+    const updatedEchoEntries = [...existingEchoEntries, newEchoEntry];
+    localStorage.setItem("echoEntries", JSON.stringify(updatedEchoEntries));
     
     toast({
-      title: "Transcription saved",
-      description: "Your transcription has been saved successfully"
+      title: "Echo Entry saved",
+      description: "Your Echo Entry has been saved successfully"
     });
     onOpenChange(false);
   };
@@ -107,7 +107,7 @@ const TranscriptionWindow = ({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <FileText className="w-5 h-5 text-pastel-pink" />
-            Voice Journal Transcription
+            Echo Entry Transcription
           </DialogTitle>
         </DialogHeader>
         
@@ -143,7 +143,7 @@ const TranscriptionWindow = ({
           {(transcription || initialTranscription) && !isTranscribing && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="transcription">Transcription</Label>
+                <Label htmlFor="transcription">Echo Entry</Label>
                 <Textarea
                   id="transcription"
                   value={editedTranscription}

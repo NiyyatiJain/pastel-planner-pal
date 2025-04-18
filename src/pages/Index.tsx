@@ -1,3 +1,4 @@
+
 import DailyOverview from "@/components/DailyOverview";
 import VoiceJournal from "@/components/VoiceJournal";
 import VisionBoard from "@/components/VisionBoard";
@@ -8,9 +9,8 @@ import ChatBot from "@/components/ChatBot";
 import ThemeSelector from "@/components/ThemeSelector";
 import EchoEntriesView from "@/components/TranscriptionsView";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar as CalendarIcon, LogIn, FileText } from "lucide-react";
+import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, LogIn, FileText } from "lucide-react";
 import { useState } from "react";
-import CalendarView from "./Calendar";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -45,7 +45,7 @@ const Index = () => {
         <DailyOverview />
         
         <Tabs defaultValue="journal" className="w-full">
-          <TabsList className={`w-full grid grid-cols-3 md:grid-cols-9 ${isDarkTheme ? 'bg-white/10' : 'bg-white/50'}`}>
+          <TabsList className={`w-full grid grid-cols-3 md:grid-cols-8 ${isDarkTheme ? 'bg-white/10' : 'bg-white/50'}`}>
             <TabsTrigger value="journal" className="flex items-center gap-2">
               <Mic className="w-4 h-4" />
               <span className="hidden md:inline">Journal</span>
@@ -77,10 +77,6 @@ const Index = () => {
             <TabsTrigger value="chat" className="flex items-center gap-2">
               <MessageCircle className="w-4 h-4" />
               <span className="hidden md:inline">Chat</span>
-            </TabsTrigger>
-            <TabsTrigger value="calendar" className="flex items-center gap-2">
-              <CalendarIcon className="w-4 h-4" />
-              <span className="hidden md:inline">Calendar</span>
             </TabsTrigger>
           </TabsList>
 
@@ -116,10 +112,6 @@ const Index = () => {
 
           <TabsContent value="chat" className="mt-4">
             <ChatBot />
-          </TabsContent>
-
-          <TabsContent value="calendar" className="mt-4">
-            <CalendarView />
           </TabsContent>
         </Tabs>
       </div>

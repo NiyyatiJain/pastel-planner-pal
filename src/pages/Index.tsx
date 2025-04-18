@@ -1,4 +1,3 @@
-
 import DailyOverview from "@/components/DailyOverview";
 import VoiceJournal from "@/components/VoiceJournal";
 import VisionBoard from "@/components/VisionBoard";
@@ -11,7 +10,7 @@ import EchoEntriesView from "@/components/TranscriptionsView";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart, Star, Music, Image, Mic, Trophy, MessageCircle, Calendar as CalendarIcon, LogIn, FileText } from "lucide-react";
 import { useState } from "react";
-import CalendarView from "./Calendar";
+import CalendarPage from "./Calendar";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -120,7 +119,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="mt-4">
-            <CalendarView />
+            <CalendarPage />
           </TabsContent>
         </Tabs>
       </div>

@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CalendarDayView from "@/components/calendar/CalendarDayView";
 import CalendarWeekView from "@/components/calendar/CalendarWeekView";
@@ -17,7 +16,7 @@ import { ReflectionPrompt } from "@/components/calendar/ReflectionPrompt";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
-const Calendar = () => {
+const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedView, setSelectedView] = useState<"day" | "week" | "month">("day");
   
@@ -94,7 +93,7 @@ const Calendar = () => {
           <Separator className="my-4" />
           
           <div className="mb-4">
-            <Calendar 
+            <CalendarComponent 
               mode="single"
               selected={selectedDate}
               onSelect={handleDateChange}
@@ -186,4 +185,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default CalendarPage;

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
@@ -85,19 +86,26 @@ const CalendarPage = () => {
     <div className="grid md:grid-cols-7 gap-4 h-full">
       {/* Left sidebar */}
       <Card className="md:col-span-2 h-full">
-        <CardContent className="p-4 flex flex-col h-full">
+        <CardContent className="p-4 flex flex-col h-full space-y-4">
           <CalendarHeader 
             selectedDate={selectedDate} 
             onDateChange={handleDateChange}
           />
-          <Separator className="my-4" />
+          <Separator className="my-2" />
           
-          <div className="mb-4">
+          <div className="mb-4 overflow-hidden"> {/* Added overflow-hidden to prevent spillover */}
             <CalendarComponent 
               mode="single"
               selected={selectedDate}
               onSelect={handleDateChange}
               className="rounded-md border"
+              classNames={{
+                month: "w-full", // Ensure full width
+                caption: "flex justify-center items-center mb-2", // Added margin bottom
+                head_row: "flex justify-between mb-1", // Added margin between header and days
+                cell: "p-1 text-center", // Reduced padding
+                day: "w-full h-full flex items-center justify-center", // Centered digits
+              }}
             />
           </div>
           
